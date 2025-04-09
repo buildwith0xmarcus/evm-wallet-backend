@@ -1,0 +1,34 @@
+{
+  "name": "web3-wallet-backend",
+  "version": "1.0.0",
+  "description": "Ethereum wallet backend service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@walletconnect/sign-client": "^2.11.0",
+    "@walletconnect/types": "^2.11.0",
+    "@walletconnect/utils": "^2.11.0",
+    "better-queue": "^3.8.12",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.5",
+    "express": "^4.18.3",
+    "express-rate-limit": "^7.5.0",
+    "express-ws": "^5.0.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.12.2",
+    "socket.io": "^4.7.4",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "axios": "^1.8.4",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "socket.io-client": "^4.8.1"
+  }
+}

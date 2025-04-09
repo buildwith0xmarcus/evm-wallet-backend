@@ -1,0 +1,411 @@
+{
+  "info": {
+    "_postman_id": "e5a3b8d2-1234-5678-9abc-def012345678",
+    "name": "Web3 Wallet Backend API",
+    "description": "API collection for Ethereum wallet backend service supporting multiple networks, wallet management, and WalletConnect integration.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Network Information",
+      "item": [
+        {
+          "name": "Get Supported Networks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/networks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "networks"]
+            },
+            "description": "Returns all supported networks and their configurations"
+          }
+        }
+      ]
+    },
+    {
+      "name": "WalletConnect",
+      "item": [
+        {
+          "name": "Create Connection",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/connect",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "connect"]
+            },
+            "description": "Creates a new WalletConnect session and returns URI for QR code"
+          }
+        },
+        {
+          "name": "Handle Connection Approval",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "approve"]
+            },
+            "description": "Handles connection approval after user scans QR code"
+          }
+        },
+        {
+          "name": "Get Connection Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "status"]
+            },
+            "description": "Gets current WalletConnect session status"
+          }
+        },
+        {
+          "name": "Sign Message",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"Hello WalletConnect!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/sign-message",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "sign-message"]
+            },
+            "description": "Signs a message using connected wallet"
+          }
+        },
+        {
+          "name": "Send Transaction",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"to\": \"0x...\",\n    \"value\": \"1000000000000000000\",\n    \"data\": \"0x...\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/send-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "send-transaction"]
+            },
+            "description": "Sends a transaction using connected wallet"
+          }
+        },
+        {
+          "name": "Disconnect",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet-connect/disconnect",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet-connect", "disconnect"]
+            },
+            "description": "Terminates current WalletConnect session"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wallet Management",
+      "item": [
+        {
+          "name": "Create New Wallet",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/create-wallet",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "create-wallet"]
+            },
+            "description": "Creates a new Ethereum wallet and returns address, private key, encrypted private key, and mnemonic"
+          }
+        },
+        {
+          "name": "Import Wallet by Private Key",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"privateKey\": \"0x...\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/import-wallet/private-key",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "import-wallet", "private-key"]
+            },
+            "description": "Imports a wallet using a private key"
+          }
+        },
+        {
+          "name": "Import Wallet by Mnemonic",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"mnemonic\": \"word1 word2 ...\",\n    \"path\": \"m/44'/60'/0'/0/0\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/import-wallet/mnemonic",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "import-wallet", "mnemonic"]
+            },
+            "description": "Imports a wallet using a mnemonic phrase"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Balance Queries",
+      "item": [
+        {
+          "name": "Get Wallet Balance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet/:address/balance?network=ethereum&networkType=mainnet&tokens=USDT:0xdac17f958d2ee523a2206206994597c13d831ec7",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet", ":address", "balance"],
+              "query": [
+                {
+                  "key": "network",
+                  "value": "ethereum",
+                  "description": "Network name (ethereum, polygon, bsc, etc.)"
+                },
+                {
+                  "key": "networkType",
+                  "value": "mainnet",
+                  "description": "Network type (mainnet, testnet)"
+                },
+                {
+                  "key": "tokens",
+                  "value": "USDT:0xdac17f958d2ee523a2206206994597c13d831ec7",
+                  "description": "Comma-separated token addresses with symbols"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "address",
+                  "value": "0x...",
+                  "description": "Wallet address"
+                }
+              ]
+            },
+            "description": "Gets native token and other token balances for a wallet address"
+          }
+        },
+        {
+          "name": "Get Token Balance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallet/:address/token/:tokenAddress?network=ethereum&networkType=mainnet",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallet", ":address", "token", ":tokenAddress"],
+              "query": [
+                {
+                  "key": "network",
+                  "value": "ethereum"
+                },
+                {
+                  "key": "networkType",
+                  "value": "mainnet"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "address",
+                  "value": "0x..."
+                },
+                {
+                  "key": "tokenAddress",
+                  "value": "0x..."
+                }
+              ]
+            },
+            "description": "Gets balance for a specific token"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Send Native Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"encryptedPrivateKey\": \"encrypted-key\",\n    \"to\": \"0xTargetAddress\",\n    \"amount\": \"0.01\",\n    \"gasLimit\": \"21000\",\n    \"network\": \"ethereum\",\n    \"networkType\": \"mainnet\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/send-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "send-transaction"]
+            },
+            "description": "Sends native token (ETH/MATIC/BNB/etc.)"
+          }
+        },
+        {
+          "name": "Send ERC20 Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"encryptedPrivateKey\": \"encrypted-key\",\n    \"tokenAddress\": \"0xTokenContractAddress\",\n    \"to\": \"0xTargetAddress\",\n    \"amount\": \"10\",\n    \"decimals\": 18,\n    \"network\": \"ethereum\",\n    \"networkType\": \"mainnet\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/send-token-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "send-token-transaction"]
+            },
+            "description": "Sends ERC20 tokens"
+          }
+        },
+        {
+          "name": "Send NFT",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"encryptedPrivateKey\": \"encrypted-key\",\n    \"nftAddress\": \"0xNFTContractAddress\",\n    \"to\": \"0xTargetAddress\",\n    \"tokenId\": \"123\",\n    \"amount\": \"1\",\n    \"nftType\": \"ERC721\",\n    \"network\": \"ethereum\",\n    \"networkType\": \"mainnet\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/send-nft-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "send-nft-transaction"]
+            },
+            "description": "Sends NFT (ERC721 or ERC1155)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transaction Analysis",
+      "item": [
+        {
+          "name": "Simulate Transaction",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"from\": \"0xSenderAddress\",\n    \"to\": \"0xTargetAddress\",\n    \"value\": \"1000000000000000000\",\n    \"data\": \"0x\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/simulate-transaction?network=ethereum&networkType=mainnet",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "simulate-transaction"],
+              "query": [
+                {
+                  "key": "network",
+                  "value": "ethereum"
+                },
+                {
+                  "key": "networkType",
+                  "value": "mainnet"
+                }
+              ]
+            },
+            "description": "Simulates a transaction before sending"
+          }
+        },
+        {
+          "name": "Get Gas Price",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/gas-price?network=ethereum&networkType=mainnet",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "gas-price"],
+              "query": [
+                {
+                  "key": "network",
+                  "value": "ethereum"
+                },
+                {
+                  "key": "networkType",
+                  "value": "mainnet"
+                }
+              ]
+            },
+            "description": "Gets current gas price estimation"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3002",
+      "type": "string"
+    }
+  ]
+} 
